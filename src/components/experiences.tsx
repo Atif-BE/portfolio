@@ -2,42 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-
-const experiences = [
-  {
-    company: 'ZeroRent',
-    role: 'CTO',
-    duration: '2024 - Present',
-    description: 'Creator of the ZeroRent portal and admin dashboard.',
-    technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'PostgreSQL'],
-    achievements: [
-      'Created the ZeroRent portal and admin dashboard.',
-    ],
-  },
-  {
-    company: 'Solvify',
-    role: 'Chief Nerd',
-    duration: '2023 - Present',
-    description: 'Helping business scale using IT.',
-    technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'PostgreSQL'],
-    achievements: [
-      'Developed a management system for a client in the automotive industry.',
-      'Developed a SaaS application for dealerships'
-    ],
-  },
-  {
-    company: 'Amotek Technologies',
-    role: 'Full Stack Developer',
-    duration: '2022 - Present',
-    description: 'Consulting Developer for a variety of clients.',
-    technologies: ['React', 'TypeScript', 'Fastify', 'PostgreSQL'],
-    achievements: [
-      'Developed a ERP system for a client in the building industry.',
-      'Mentored junior developers',
-      'Led an internal product project we built from scratch.',
-    ],
-  },
-]
+import { experiences } from '@/data'
 
 export const Experience = () => {
   const [ref, inView] = useInView({

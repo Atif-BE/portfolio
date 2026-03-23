@@ -8,8 +8,8 @@ import { useState, useEffect } from 'react'
 export const Hero = () => {
   const phrases = [
     "Actually Enhancing Your Business",
-    "Full Stack Magic, Real World Results",
-    "Helping You Scale",
+    "From AI Agents to Full Stack Apps",
+    "Enterprise-Grade, Startup Speed",
     "Modern Stack, Timeless Quality"
   ]
 
@@ -24,7 +24,7 @@ export const Hero = () => {
   }, [])
 
   return (
-    <section className="relative flex items-center min-h-screen overflow-hidden bg-gradient-to-b from-neutral-50 to-white py-16 md:pt-32 md:pb-16 dark:from-neutral-900 dark:to-neutral-800">
+    <section className="relative flex items-center min-h-screen overflow-hidden bg-linear-to-b from-neutral-50 to-white py-16 md:pt-32 md:pb-16 dark:from-neutral-900 dark:to-neutral-800">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -79,7 +79,7 @@ export const Hero = () => {
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ delay: 0.2 }}
-              className="relative aspect-square overflow-hidden rounded-full bg-gradient-to-br from-red-900 to-red-800 dark:from-red-800 dark:to-red-900"
+              className="relative aspect-square overflow-hidden rounded-full bg-linear-to-br from-red-900 to-red-800 dark:from-red-800 dark:to-red-900"
             >
               <Image
                 src="/profile.jpg"

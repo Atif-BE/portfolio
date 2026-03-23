@@ -19,13 +19,24 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: 'Atif Khalil - Full Stack Developer',
-  description: 'Full Stack Developer specializing in TypeScript, Next.js, and modern web technologies',
-  keywords: ['Full Stack Developer', 'TypeScript', 'Next.js', 'React', 'Web Development'],
+  description: 'Full Stack Developer specializing in TypeScript, Next.js, Azure AI, and modern web technologies. Building enterprise-grade applications and AI-powered solutions.',
+  keywords: ['Full Stack Developer', 'TypeScript', 'Next.js', 'React', 'Azure AI', 'Web Development', 'AI Agents', 'Enterprise Software'],
   authors: [{ name: 'Atif Khalil' }],
+  robots: {
+    index: true,
+    follow: true,
+  },
   openGraph: {
     title: 'Atif Khalil - Full Stack Developer',
-    description: 'Full Stack Developer specializing in TypeScript, Next.js, and modern web technologies',
+    description: 'Full Stack Developer specializing in TypeScript, Next.js, Azure AI, and modern web technologies.',
     type: 'website',
+    locale: 'en_US',
+    siteName: 'Atif Khalil',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Atif Khalil - Full Stack Developer',
+    description: 'Full Stack Developer specializing in TypeScript, Next.js, Azure AI, and modern web technologies.',
   },
 }
 

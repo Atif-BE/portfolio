@@ -1,9 +1,8 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import emailjs from '@emailjs/browser'
 import toast, { Toaster } from 'react-hot-toast'
 
 export const Contact = () => {
@@ -13,13 +12,11 @@ export const Contact = () => {
   })
 
   const [isDarkMode, setIsDarkMode] = useState(false)
-  
+
   useEffect(() => {
-    // Check if dark mode is enabled
     const isDark = document.documentElement.classList.contains('dark')
     setIsDarkMode(isDark)
-    
-    // Listen for changes to the theme
+
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (
@@ -31,18 +28,17 @@ export const Contact = () => {
         }
       })
     })
-    
+
     observer.observe(document.documentElement, {
       attributes: true,
       attributeFilter: ['class'],
     })
-    
+
     return () => {
       observer.disconnect()
     }
   }, [])
 
-  const formRef = useRef<HTMLFormElement>(null)
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -56,36 +52,26 @@ export const Contact = () => {
     e.preventDefault()
     setIsSubmitting(true)
     setError('')
-    
-    // Show a loading toast that will be dismissed when the form is submitted
+
     const loadingToast = toast.loading('Sending your message...')
-    
+
     try {
-      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID
-      const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID
-      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
-      
-      if (!formRef.current || !serviceId || !templateId || !publicKey) {
-        toast.dismiss(loadingToast)
-        toast.error('Unable to send message due to missing configuration. Please try again later.')
-        setIsSubmitting(false)
-        return
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      })
+
+      if (!response.ok) {
+        const data = await response.json()
+        throw new Error(data.error || 'Failed to send message.')
       }
-      
-      const response = await emailjs.sendForm(
-        serviceId,
-        templateId,
-        formRef.current,
-        publicKey
-      )
-      
-      console.log('Email sent successfully:', response)
+
       setIsSubmitted(true)
-      
-      // Dismiss the loading toast and show success toast
+
       toast.dismiss(loadingToast)
       toast.success(`Thanks ${formData.name}! Your message has been sent. I'll get back to you soon.`)
-      
+
       setTimeout(() => {
         setFormData({ name: '', email: '', message: '' })
         setIsSubmitting(false)
@@ -94,11 +80,10 @@ export const Contact = () => {
     } catch (error) {
       console.error('Error submitting form:', error)
       setError('Failed to send message. Please try again later.')
-      
-      // Dismiss the loading toast and show error toast
+
       toast.dismiss(loadingToast)
       toast.error('Something went wrong sending your message. Please try again or contact me directly via email.')
-      
+
       setIsSubmitting(false)
     }
   }
@@ -106,7 +91,7 @@ export const Contact = () => {
   return (
     <section id="contact" className="bg-neutral-50 py-20 dark:bg-neutral-800" ref={ref}>
       <div className="container mx-auto px-4">
-        <Toaster 
+        <Toaster
           position="top-right"
           toastOptions={{
             duration: 5000,
@@ -152,7 +137,7 @@ export const Contact = () => {
           </h2>
           <div className="grid gap-12 rounded-2xl bg-white p-8 shadow-lg dark:bg-neutral-900 lg:grid-cols-2">
             <div>
-              <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <label
                     htmlFor="name"
@@ -163,9 +148,9 @@ export const Contact = () => {
                   <input
                     type="text"
                     id="name"
-                    name="from_name"
+                    name="name"
                     required
-                    className="mt-1 block w-full rounded-md border border-neutral-300 bg-white px-4 py-2 text-neutral-900 shadow-sm focus:border-red-500 focus:ring-2 focus:ring-red-500 dark:border-neutral-600 dark:bg-neutral-800 dark:text-white"
+                    className="mt-1 block w-full rounded-md border border-neutral-300 bg-white px-4 py-2 text-neutral-900 shadow-xs focus:border-red-500 focus:ring-2 focus:ring-red-500 dark:border-neutral-600 dark:bg-neutral-800 dark:text-white"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   />
@@ -180,9 +165,9 @@ export const Contact = () => {
                   <input
                     type="email"
                     id="email"
-                    name="from_email"
+                    name="email"
                     required
-                    className="mt-1 block w-full rounded-md border border-neutral-300 bg-white px-4 py-2 text-neutral-900 shadow-sm focus:border-red-500 focus:ring-2 focus:ring-red-500 dark:border-neutral-600 dark:bg-neutral-800 dark:text-white"
+                    className="mt-1 block w-full rounded-md border border-neutral-300 bg-white px-4 py-2 text-neutral-900 shadow-xs focus:border-red-500 focus:ring-2 focus:ring-red-500 dark:border-neutral-600 dark:bg-neutral-800 dark:text-white"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   />
@@ -199,7 +184,7 @@ export const Contact = () => {
                     name="message"
                     required
                     rows={4}
-                    className="mt-1 block w-full rounded-md border border-neutral-300 bg-white px-4 py-2 text-neutral-900 shadow-sm focus:border-red-500 focus:ring-2 focus:ring-red-500 dark:border-neutral-600 dark:bg-neutral-800 dark:text-white"
+                    className="mt-1 block w-full rounded-md border border-neutral-300 bg-white px-4 py-2 text-neutral-900 shadow-xs focus:border-red-500 focus:ring-2 focus:ring-red-500 dark:border-neutral-600 dark:bg-neutral-800 dark:text-white"
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   />
@@ -308,9 +293,10 @@ export const Contact = () => {
                 </h3>
                 <div className="flex space-x-4">
                   <a
-                    href="https://github.com/Atif-Amotek"
+                    href="https://github.com/atifkhalil"
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label="GitHub"
                     className="text-neutral-600 transition-colors hover:text-red-800 dark:text-neutral-300 dark:hover:text-red-500"
                   >
                     <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
@@ -325,6 +311,7 @@ export const Contact = () => {
                     href="https://www.linkedin.com/in/atif-k-04b037225/"
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label="LinkedIn"
                     className="text-neutral-600 transition-colors hover:text-red-800 dark:text-neutral-300 dark:hover:text-red-500"
                   >
                     <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
