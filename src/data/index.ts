@@ -23,24 +23,18 @@ export const projects: Project[] = [
     title: 'RevMeet',
     description:
       'A meeting and revenue management product built on the T3 stack. Streamlines scheduling and revenue tracking for businesses.',
-    image: '',
+    image: '/revmeet.png',
     technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Drizzle ORM', 'PostgreSQL'],
+    liveUrl: 'https://revmeet.be',
     category: 'saas',
   },
   {
     title: 'Reflectly',
     description:
       'A reflection and journaling platform designed to help users build consistent self-improvement habits through guided prompts and progress tracking.',
-    image: '',
+    image: '/reflectly.png',
     technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'PostgreSQL'],
-    category: 'saas',
-  },
-  {
-    title: 'CarBidder',
-    description:
-      'A car bidding and auction platform connecting buyers and sellers in the automotive market with real-time bidding and transparent pricing.',
-    image: '',
-    technologies: ['Next.js', 'TypeScript', 'Tailwind CSS', 'PostgreSQL'],
+    liveUrl: 'https://reflectly.be',
     category: 'saas',
   },
   {
@@ -63,8 +57,9 @@ export const projects: Project[] = [
     title: 'BIIC Digital Infrastructure',
     description:
       'Digital infrastructure for the Belgium Islamic Information Centre. GDPR-compliant registration forms in Dutch for Maktab and Quran lesson programs, plus a complete brand and design system.',
-    image: '',
-    technologies: ['Tally.so', 'Montserrat', 'Brand Design', 'GDPR'],
+    image: '/biic.png',
+    technologies: ['Stripe', 'HubSpot Integration', 'Brand Design'],
+    liveUrl: 'https://biic.be',
     category: 'community',
   },
 ]
@@ -101,7 +96,6 @@ export const experiences: Experience[] = [
     achievements: [
       'Built RevMeet, a meeting and revenue management product using the T3 stack.',
       'Developed Reflectly, a journaling and reflection platform.',
-      'Created CarBidder, a car auction platform.',
       'Developed AutoBill, an automated billing SaaS for dealerships.',
     ],
   },
